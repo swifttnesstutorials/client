@@ -3,7 +3,10 @@ import React from 'react';
 import { useCart } from '../hooks/useCart';
 
 const CartPage = () => {
-  const { cart, removeFromCart, clearCart } = useCart();
+  const { cart, removeFromCart, clearCart, updateCartItemQuantity } = useCart();
+
+  // Log to see if the cart is populated
+  console.log('Cart content:', cart);
 
   return (
     <div className="p-4">
@@ -13,18 +16,37 @@ const CartPage = () => {
       ) : (
         <div>
           <ul>
-            {cart.map((item, index) => (
-              <li key={index} className="flex justify-between items-center mb-2">
-                <span>{item.name} - ₹{item.price.toFixed(2)}</span>
-                <button
-                  onClick={() => removeFromCart(item.id)}
-                  className="bg-red-500 text-white px-2 py-1 rounded"
-                >
-                  Remove
-                </button>
+            {cart.map((item) => (
+              <li key={item.id} className="flex justify-between items-center mb-2">
+                <span>
+                  {item.name} - ₹{item.price.toFixed(2)} x {item.quantity}
+                </span>
+                <div className="flex items-center">
+                  <button
+                    onClick={() => updateCartItemQuantity(item.id, -1)}
+                    disabled={item.quantity <= 1}
+                    className="bg-yellow-500 text-white px-2 py-1 rounded mr-2"
+                  >
+                    -
+                  </button>
+                  <span className="mx-2">{item.quantity}</span>
+                  <button
+                    onClick={() => updateCartItemQuantity(item.id, 1)}
+                    className="bg-green-500 text-white px-2 py-1 rounded"
+                  >
+                    +
+                  </button>
+                  <button
+                    onClick={() => removeFromCart(item.id)}
+                    className="bg-red-500 text-white px-2 py-1 rounded ml-2"
+                  >
+                    Remove
+                  </button>
+                </div>
               </li>
             ))}
           </ul>
+          
           <button
             onClick={clearCart}
             className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"

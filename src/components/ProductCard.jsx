@@ -1,3 +1,5 @@
+
+// src/components/Product.jsx
 import React from 'react';
 
 // ProductCard Component

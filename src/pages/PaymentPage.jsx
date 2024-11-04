@@ -4,6 +4,10 @@ const PaymentPage = ({ total = 0, placeOrder = () => alert('Order placed!') }) =
   const [cardNumber, setCardNumber] = useState('');
   const [expiry, setExpiry] = useState('');
   const [cvv, setCvv] = useState('');
+  const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
+  const [phone, setPhone] = useState('');
+  
 
   useEffect(() => {
     console.log('PaymentPage rendered');
@@ -12,7 +16,7 @@ const PaymentPage = ({ total = 0, placeOrder = () => alert('Order placed!') }) =
   }, [total, placeOrder]);
 
   const handlePayment = () => {
-    if (cardNumber && expiry && cvv) {
+    if (cardNumber && expiry && cvv && name && address && phone) {
       placeOrder();
       alert('Payment Successful!');
     } else {
@@ -27,6 +31,9 @@ const PaymentPage = ({ total = 0, placeOrder = () => alert('Order placed!') }) =
       <h1 className="text-2xl font-bold mb-4 text-center">Payment Details</h1>
       <form className="space-y-4">
         <div>
+        
+            
+        
           <label className="block text-sm font-medium text-gray-700">Card Number</label>
           <input
             type="text"
@@ -54,6 +61,41 @@ const PaymentPage = ({ total = 0, placeOrder = () => alert('Order placed!') }) =
             onChange={(e) => setCvv(e.target.value)}
             placeholder="CVV"
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+         {/* Delivery Information */}
+         <h2 className="text-lg font-bold mt-6">Delivery Information</h2>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Name</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Full Name"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Address</label>
+          <input
+            type="text"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            placeholder="Address"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Phone Number</label>
+          <input
+            type="tel"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="Phone Number"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
           />
         </div>
         <h2 className="text-lg font-semibold text-gray-800">Total Amount: ₹{total.toFixed(2)}</h2>

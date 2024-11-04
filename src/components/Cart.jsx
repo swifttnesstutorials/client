@@ -1,3 +1,4 @@
+// src/components/cart.jsx
 import React from 'react';
 import { useCart } from '../hooks/useCart';
 
@@ -52,4 +53,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default Cart;  
