@@ -1,13 +1,27 @@
 // src/pages/CartPage.jsx
 import React from 'react';
 import { useCart } from '../hooks/useCart';
+import { useNavigate } from 'react-router-dom';
 
 const CartPage = () => {
   const { cart, removeFromCart, clearCart, updateCartItemQuantity } = useCart();
+  const navigate = useNavigate();
 
+  const handleQuantityChange = (id, amount) => {
+    updateCartItemQuantity(id, amount);
+  };
   // Log to see if the cart is populated
   console.log('Cart content:', cart);
 
+  const handleCheckout = () => {
+    if (cart.length === 0) {
+      alert('Your cart is empty. Please add items to your cart before checking out.');
+    } else {
+      navigate('/checkout'); // Redirect to the checkout page
+    }
+  };
+
+  
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Your Cart</h1>
@@ -53,6 +67,12 @@ const CartPage = () => {
           >
             Clear Cart
           </button>
+          <button
+            onClick={handleCheckout}
+            className="mt-4 bg-green-500 text-white px-4 py-2 rounded"
+          >
+            Proceed to Checkout
+          </button>
         </div>
       )}
     </div>
@@ -60,3 +80,4 @@ const CartPage = () => {
 };
 
 export default CartPage;
+        

@@ -2,6 +2,7 @@
 // src/components/Product.jsx
 import React from 'react';
 
+
 // ProductCard Component
 const ProductCard = ({ product, onAddToCart }) => {
   // Format the price using Intl.NumberFormat for Indian currency (INR)

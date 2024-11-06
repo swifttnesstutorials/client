@@ -13,11 +13,10 @@ export const CartProvider = ({ children }) => {
     setCart((prevItems) => {
       const existingItem = prevItems.find((cartItem) => cartItem.id === item.id);
       if (existingItem) {
-        return prevItems.map((cartItem) =>
-          cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
-        );
+        alert(`${item.name} is already in the cart!`);
+        return prevItems; // Keep the current state if the item is already in the cart
       } else {
-        return [...prevItems, { ...item, quantity: 1 }];
+        return [...prevItems, { ...item, quantity: 1 }]; // Add item if not present in the cart
       }
     });
   };
@@ -31,15 +30,15 @@ export const CartProvider = ({ children }) => {
   };
 
   const updateCartItemQuantity = (id, amount) => {
-    setCart((prevItems) => {
-      return prevItems.map((item) => {
+    setCart((prevItems) =>
+      prevItems.map((item) => {
         if (item.id === id) {
           const newQuantity = item.quantity + amount;
-          return { ...item, quantity: newQuantity < 1 ? 1 : newQuantity };
+          return { ...item, quantity: newQuantity < 1 ? 1 : newQuantity }; // Prevents quantity from going below 1
         }
         return item;
-      });
-    });
+      })
+    );
   };
 
   return (

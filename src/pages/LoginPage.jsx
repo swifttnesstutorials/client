@@ -1,11 +1,12 @@
 // src/pages/LoginPage.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 
 const LoginPage = () => {
   const { login, user } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,7 +20,8 @@ const LoginPage = () => {
 
     try {
       await login(email, password);
-      navigate('/'); // Redirect to home after login
+      const redirectTo = location.state?.from || '/'; // Default to home if no redirect is stored
+      navigate(redirectTo);
     } catch (err) {
       setError('Failed to login. Please check your credentials.');
     } finally {

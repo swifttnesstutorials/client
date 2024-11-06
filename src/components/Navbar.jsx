@@ -1,5 +1,4 @@
 // src/components/Navbar.jsx
-// src/components/Navbar.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
@@ -18,7 +17,7 @@ const Navbar = () => {
             <>
               {isAdmin && <Link to="/add-food" className="mx-2">Add Food</Link>}
               <Link to="/cart" className="mx-2">Cart</Link>
-              <Link to="/payment" className="mx-2">Payment</Link>
+          
               <button onClick={logout} className="mx-2">Logout</button>
             </>
           ) : (
@@ -34,4 +33,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

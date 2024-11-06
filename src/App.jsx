@@ -6,7 +6,6 @@ import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import MenuPage from './pages/MenuPage';
 import CartPage from './pages/CartPage';
-import PaymentPage from './pages/PaymentPage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import About from './pages/About';
@@ -17,6 +16,9 @@ import Contact from './pages/Contact';
 import ProtectedRoute from './components/ProtectedRoute';
 import { CartProvider } from './hooks/useCart';
 import AddFoodPage from './pages/AddFoodPage';
+import CheckoutPage from './pages/CheckoutPage';
+import PaymentSuccessPage from './pages/PaymentSuccessPage'; // Adjust path as needed
+
 
 
 
@@ -34,8 +36,9 @@ const App = () => (
 
           {/* Protected Routes */}
           <Route path="/cart" element={<CartPage />} />
-          {/* Protected Routes */}
-          <Route path="/payment" element={<PaymentPage />} /> 
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/payment-success" element={<PaymentSuccessPage />} />
+    
 
           
           
@@ -47,6 +50,7 @@ const App = () => (
           <Route path="/admin" element={<Admin />} />
           {/* New Route for Adding Food */}
           <Route path="/add-food" element={<AddFoodPage />} />
+          
           
           
         </Routes>

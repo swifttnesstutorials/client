@@ -6,17 +6,32 @@ const AddFoodForm = () => {
   const [foodName, setFoodName] = useState('');
   const [foodDescription, setFoodDescription] = useState('');
   const [foodPrice, setFoodPrice] = useState('');
-  
+  const [foodImage, setFoodImage] = useState(null); // To store the uploaded image file
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFoodImage(file);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you can add the logic to save the food item
-    console.log('Food Added:', { foodName, foodDescription, foodPrice });
+    
+    const formData = new FormData();
+    formData.append('foodName', foodName);
+    formData.append('foodDescription', foodDescription);
+    formData.append('foodPrice', foodPrice);
+    if (foodImage) formData.append('foodImage', foodImage);
+
+    // Logic to send the form data (including image) to the backend
+    console.log('Food Added:', { foodName, foodDescription, foodPrice, foodImage });
+    
     // Reset the form after submission
     setFoodName('');
     setFoodDescription('');
     setFoodPrice('');
-    
+    setFoodImage(null);
   };
 
   return (
@@ -46,6 +61,17 @@ const AddFoodForm = () => {
         className="border p-2 w-full"
       />
       
+      {/* Image upload input */}
+      <div>
+        <label className="block">Food Image</label>
+        <input
+          type="file"
+          onChange={handleImageChange}
+          accept="image/*"
+          className="border p-2 w-full"
+        />
+      </div>
+
       <button type="submit" className="bg-blue-500 text-white p-2">
         Add Food
       </button>
