@@ -1,22 +1,39 @@
 // src/hooks/useCart.jsx
+// src/hooks/useCart.jsx
+// src/hooks/useCart.jsx
 import React, { createContext, useContext, useState } from 'react';
+import { toast } from 'react-toastify';
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
 
-  // Example logging to see initial state
-  console.log('Cart state:', cart);
-
   const addToCart = (item) => {
     setCart((prevItems) => {
       const existingItem = prevItems.find((cartItem) => cartItem.id === item.id);
       if (existingItem) {
-        alert(`${item.name} is already in the cart!`);
-        return prevItems; // Keep the current state if the item is already in the cart
+        toast.info(`${item.name} is already in the cart!`, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        return prevItems;
       } else {
-        return [...prevItems, { ...item, quantity: 1 }]; // Add item if not present in the cart
+        toast.success(`${item.name} added to the cart!`, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        return [...prevItems, { ...item, quantity: 1 }];
       }
     });
   };
@@ -34,7 +51,7 @@ export const CartProvider = ({ children }) => {
       prevItems.map((item) => {
         if (item.id === id) {
           const newQuantity = item.quantity + amount;
-          return { ...item, quantity: newQuantity < 1 ? 1 : newQuantity }; // Prevents quantity from going below 1
+          return { ...item, quantity: newQuantity < 1 ? 1 : newQuantity };
         }
         return item;
       })
