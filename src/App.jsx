@@ -50,7 +50,7 @@ const App = () => (
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/admin" element={<Admin />} />
-            <Route path="/cart" element={<CartPage />} />
+            <Route path="/cart" element={<ProtectedRoute component={CartPage} />} />
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/add-food" element={<AddFoodPage />} />
             <Route path="/success" element={<PaymentSuccess />} />

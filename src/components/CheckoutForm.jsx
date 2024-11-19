@@ -2,11 +2,14 @@
 import React, { useState } from 'react';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import { useNavigate } from 'react-router-dom';
+import { useCart } from '../hooks/useCart'; // Import useCart hook
+
 
 const CheckoutForm = ({ totalAmount }) => {
   const stripe = useStripe();
   const elements = useElements();
   const navigate = useNavigate();
+  const { clearCart } = useCart();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -19,11 +22,12 @@ const CheckoutForm = ({ totalAmount }) => {
     setError(null);
 
     try {
-      // Send amount to backend to create payment intent
-      const response = await fetch('https://client-server-15.onrender.com/api/create-payment-intent', {
+      // Send the amount to the backend to create the Payment Intent
+      const response = await fetch('https://client-server-18.onrender.com/payments/create-payment-intent', {
+     
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: totalAmount * 100 }),
+        body: JSON.stringify({ amount: totalAmount }), // Amount in INR
       });
 
       if (!response.ok) throw new Error("Failed to create payment intent");
@@ -31,6 +35,7 @@ const CheckoutForm = ({ totalAmount }) => {
       const { clientSecret } = await response.json();
       if (!clientSecret) throw new Error("No client secret returned from backend");
 
+      // Confirm the payment on the client side using the Stripe client secret
       const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
         payment_method: { card: cardElement },
       });
@@ -39,7 +44,8 @@ const CheckoutForm = ({ totalAmount }) => {
       if (error) {
         setError("Payment failed: " + error.message);
       } else if (paymentIntent.status === 'succeeded') {
-        navigate('/success');
+        clearCart(); // Clear the cart after payment success
+        navigate('/success'); // Redirect to success page
       }
     } catch (error) {
       setLoading(false);

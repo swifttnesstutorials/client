@@ -1,0 +1,27 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)", 
+      "destination": "https://client-server-18.onrender.com"
+    },
+    {
+      "source": "/user/payment/success",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/user/payment/cancel",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "https://client-ten-nu-42.vercel.app" },
+        { "key": "Access-Control-Allow-Credentials", "value": "true" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET, POST, PUT, DELETE, OPTIONS" },
+        { "key": "Access-Control-Allow-Headers", "value": "Authorization, Content-Type" }
+      ]
+    }
+  ]
+}

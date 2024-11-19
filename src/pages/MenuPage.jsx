@@ -51,7 +51,6 @@ const MenuPage = () => {
       image: 'https://images.unsplash.com/photo-1611143669185-af224c5e3252?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c3VzaGl8ZW58MHx8MHx8fDA%3D',
     },
   ];
-    
   
 
   return (

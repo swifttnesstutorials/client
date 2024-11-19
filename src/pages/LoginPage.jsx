@@ -24,7 +24,7 @@ const LoginPage = () => {
     // Check if the provided credentials match the saved ones
     if (savedUser && savedUser.email === email && savedUser.password === password) {
       // Call login function and navigate to the desired page
-      login(email, 'user'); // Set role as 'user' or 'admin' based on your needs
+      login(email, savedUser.role || 'user'); // Ensure correct role is used, either 'user' or 'admin'
       const redirectTo = location.state?.from || '/';
       navigate(redirectTo);
     } else {

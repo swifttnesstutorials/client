@@ -15,7 +15,7 @@ export const CartProvider = ({ children }) => {
       if (existingItem) {
         toast.info(`${item.name} is already in the cart!`, {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -26,7 +26,7 @@ export const CartProvider = ({ children }) => {
       } else {
         toast.success(`${item.name} added to the cart!`, {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
