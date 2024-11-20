@@ -1,3 +1,4 @@
+// CheckoutPage.jsx
 import React, { useState } from 'react';
 import { useCart } from '../hooks/useCart';
 import CheckoutForm from '../components/CheckoutForm';
@@ -97,4 +98,4 @@ const CheckoutPage = () => {
   );
 };
 
-export default CheckoutPage;   
+export default CheckoutPage;

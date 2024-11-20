@@ -25,8 +25,9 @@ import { AuthProvider } from './hooks/useAuth';
 import AddFoodPage from './pages/AddFoodPage';
 import CheckoutPage from './pages/CheckoutPage';
 import CheckoutForm from './components/CheckoutForm';
-import PaymentSuccess from './pages/PaymentSuccess';
+import PaymentSuccess from './pages/PaymentSuccess';  
 import EditProfilePage from './pages/EditProfilePage'; 
+
 
 const stripePromise = loadStripe('pk_test_51QHozPIiBslsh4IXDmTjxvQOo8fDpLxXuEO5ugRYl8ATKvRNqvjfvC7guXg01OdzkOA3n2Sl5BjSxw2DYDz2yoiO00MH0wekyg'); // Replace with your Publishable Key
 
@@ -53,7 +54,9 @@ const App = () => (
             <Route path="/cart" element={<ProtectedRoute component={CartPage} />} />
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/add-food" element={<AddFoodPage />} />
-            <Route path="/success" element={<PaymentSuccess />} />
+            <Route path="/checkout" element={<CheckoutForm totalAmount={5000} />} /> {/* Example totalAmount */}
+        <Route path="/success" element={<PaymentSuccess />} />
+        
             <Route path="/edit-profile" element={<EditProfilePage />} /> 
             
           </Routes>

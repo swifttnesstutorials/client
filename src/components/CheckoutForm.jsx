@@ -4,7 +4,6 @@ import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../hooks/useCart'; // Import useCart hook
 
-
 const CheckoutForm = ({ totalAmount }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -23,11 +22,10 @@ const CheckoutForm = ({ totalAmount }) => {
 
     try {
       // Send the amount to the backend to create the Payment Intent
-      const response = await fetch('https://client-server-18.onrender.com/payments/create-payment-intent', {
-     
+      const response = await fetch('https://client-server-20.onrender.com/payments/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: totalAmount }), // Amount in INR
+        body: JSON.stringify({  amount: totalAmount * 100 }), // Amount in smallest currency unit (e.g., paise for INR)
       });
 
       if (!response.ok) throw new Error("Failed to create payment intent");
@@ -45,7 +43,7 @@ const CheckoutForm = ({ totalAmount }) => {
         setError("Payment failed: " + error.message);
       } else if (paymentIntent.status === 'succeeded') {
         clearCart(); // Clear the cart after payment success
-        navigate('/success'); // Redirect to success page
+        navigate('/success', { state: { amount: totalAmount * 100 } }); // Redirect to success page with amount
       }
     } catch (error) {
       setLoading(false);
@@ -55,7 +53,19 @@ const CheckoutForm = ({ totalAmount }) => {
 
   return (
     <form onSubmit={handleSubmit} className="mt-4">
-      <CardElement className="border rounded p-2" />
+      <CardElement
+        className="border rounded p-2"
+        options={{
+          style: {
+            base: {
+              fontSize: '16px',
+              color: '#424770',
+              '::placeholder': { color: '#aab7c4' },
+            },
+            invalid: { color: '#9e2146' },
+          },
+        }}
+      />
       {error && <div className="text-red-500 mt-2">{error}</div>}
       <button
         type="submit"

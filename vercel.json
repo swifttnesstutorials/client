@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/(.*)", 
-      "destination": "https://client-server-18.onrender.com"
+      "destination": "https://client-server-20.onrender.com"
     },
     {
       "source": "/user/payment/success",
@@ -12,6 +12,7 @@
       "source": "/user/payment/cancel",
       "destination": "/index.html"
     }
+    
   ],
   "headers": [
     {
