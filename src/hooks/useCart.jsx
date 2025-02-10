@@ -1,6 +1,7 @@
 // src/hooks/useCart.jsx
 // src/hooks/useCart.jsx
 // src/hooks/useCart.jsx
+// src/hooks/useCart.jsx
 import React, { createContext, useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 

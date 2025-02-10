@@ -8,8 +8,11 @@ const LogoutButton = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout();
-    navigate('/login');  // Redirect to the login page after logout
+    const confirmLogout = window.confirm("Are you sure you want to log out?");
+    if (confirmLogout) {
+      logout();
+      navigate('/login');  // Redirect to the login page after logout
+    }
   };
 
   return (

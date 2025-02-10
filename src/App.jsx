@@ -27,6 +27,8 @@ import CheckoutPage from './pages/CheckoutPage';
 import CheckoutForm from './components/CheckoutForm';
 import PaymentSuccess from './pages/PaymentSuccess';  
 import EditProfilePage from './pages/EditProfilePage'; 
+import OrderListPage from './pages/OrderListPage';  // Adjust the path if necessary
+
 
 
 const stripePromise = loadStripe('pk_test_51QHozPIiBslsh4IXDmTjxvQOo8fDpLxXuEO5ugRYl8ATKvRNqvjfvC7guXg01OdzkOA3n2Sl5BjSxw2DYDz2yoiO00MH0wekyg'); // Replace with your Publishable Key
@@ -58,6 +60,8 @@ const App = () => (
         <Route path="/success" element={<PaymentSuccess />} />
         
             <Route path="/edit-profile" element={<EditProfilePage />} /> 
+            <Route path="/orders" element={<OrderListPage />} />
+           
             
           </Routes>
 

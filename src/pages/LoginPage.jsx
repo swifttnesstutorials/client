@@ -18,28 +18,27 @@ const LoginPage = () => {
     setLoading(true);
     setError('');
 
-    // Fetch user credentials from localStorage
-    const savedUser = JSON.parse(localStorage.getItem('user'));
+    // Retrieve users from localStorage
+    const users = JSON.parse(localStorage.getItem('users')) || [];
 
-    // Check if the provided credentials match the saved ones
-    if (savedUser && savedUser.email === email && savedUser.password === password) {
-      // Call login function and navigate to the desired page
-      login(email, savedUser.role || 'user'); // Ensure correct role is used, either 'user' or 'admin'
-      const redirectTo = location.state?.from || '/';
-      navigate(redirectTo);
+    // Find the user by email and password
+    const foundUser = users.find((user) => user.email === email && user.password === password);
+
+    if (foundUser) {
+      login(email, foundUser.role); // Ensure role is used correctly
+      localStorage.setItem('currentUser', JSON.stringify(foundUser)); // Store the current user
+      navigate(location.state?.from || '/'); // Redirect to the desired page
     } else {
       setError('Failed to login. Please check your credentials.');
     }
+
     setLoading(false);
   };
 
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold text-center mb-4">Login</h1>
-      
-      {/* Login Form */}
       <form onSubmit={handleLogin} className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-lg">
-        {/* Email Input */}
         <div className="mb-4">
           <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
           <input
@@ -52,7 +51,6 @@ const LoginPage = () => {
           />
         </div>
 
-        {/* Password Input */}
         <div className="mb-4">
           <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
           <input
@@ -65,7 +63,6 @@ const LoginPage = () => {
           />
         </div>
 
-        {/* Login Button */}
         <button
           type="submit"
           className="bg-blue-500 text-white py-2 px-4 rounded-md w-full hover:bg-blue-600 transition duration-300"
@@ -75,10 +72,8 @@ const LoginPage = () => {
         </button>
       </form>
 
-      {/* Error Message */}
       {error && <p className="text-red-500 text-center mt-4">{error}</p>}
 
-      {/* Profile Button (Only displayed if user is logged in) */}
       {user && (
         <div className="mt-4 text-center">
           <Link to="/profile">
@@ -89,7 +84,6 @@ const LoginPage = () => {
         </div>
       )}
 
-      {/* Sign-up Link */}
       <p className="mt-4 text-center">
         Don’t have an account? <Link to="/signup" className="text-blue-500">Create Account</Link>
       </p>

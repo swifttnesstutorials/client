@@ -20,7 +20,10 @@ const Navbar = () => {
               {isAdmin && <Link to="/add-food" className="mx-2">Add Food</Link>}
               <Link to="/cart" className="mx-2">Cart</Link>
               <Link to="/profile" className="mx-2">Profile</Link> {/* Profile link here */}
-            
+              
+              
+
+
               <button onClick={logout} className="mx-2">Logout</button>
             </>
           )}

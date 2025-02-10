@@ -4,7 +4,9 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const PaymentSuccess = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const amount = location.state?.amount || 0; // Retrieve the payment amount passed via navigate
+  
+  // Ensure amount is properly retrieved
+  const amount = location.state?.amount !== undefined ? location.state.amount / 100 : "Unknown";
 
   const handleBackToHome = () => {
     navigate('/'); // Redirect to the homepage
@@ -14,7 +16,7 @@ const PaymentSuccess = () => {
     <div className="flex flex-col items-center justify-center min-h-screen bg-green-50 text-gray-700">
       <h1 className="text-3xl font-bold text-green-600 mb-4">Payment Successful! 🎉</h1>
       <p className="text-lg text-center mb-6">
-        Thank you for your order! Your payment of <strong>₹{amount / 100}</strong> has been processed successfully.
+        Thank you for your order! Your payment of <strong>₹{amount}</strong> has been processed successfully.
         <br />
         You will receive a confirmation email shortly.
       </p>
